@@ -110,27 +110,38 @@ export const GithubSection: React.FC = () => {
   }, []);
 
   // Generate matrix for visual contribution grid mockup
-  const generateGrid = () => {
-    const columns = 28;
-    const rows = 7;
-    const grid = [];
-    for (let c = 0; c < columns; c++) {
-      const colCells = [];
-      for (let r = 0; r < rows; r++) {
-        // Random coloring matching GitHub green levels
-        const rand = Math.random();
-        let bg = 'bg-[#1E293B]'; // 0 commits
-        if (rand > 0.85) bg = 'bg-[#0E4429]'; // low
-        else if (rand > 0.75) bg = 'bg-[#006D32]'; // medium
-        else if (rand > 0.65) bg = 'bg-[#26A641]'; // high
-        else if (rand > 0.55) bg = 'bg-[#39D353]'; // max
-        colCells.push(bg);
-      }
-      grid.push(colCells);
-    }
-    return grid;
-  };
+ const generateGrid = () => {
+  const columns = 53; // Full GitHub width
+  const rows = 7;
 
+  const grid = [];
+
+  for (let c = 0; c < columns; c++) {
+    const colCells = [];
+
+    for (let r = 0; r < rows; r++) {
+      const rand = Math.random();
+
+      let bg = "bg-[#1E293B]"; // Empty (about 88%)
+
+      if (rand > 0.985) {
+        bg = "bg-[#39D353]"; // Very dark green (1%)
+      } else if (rand > 0.97) {
+        bg = "bg-[#26A641]"; // Dark green (1.5%)
+      } else if (rand > 0.94) {
+        bg = "bg-[#006D32]"; // Medium green (3%)
+      } else if (rand > 0.88) {
+        bg = "bg-[#0E4429]"; // Light green (6%)
+      }
+
+      colCells.push(bg);
+    }
+
+    grid.push(colCells);
+  }
+
+  return grid;
+};
   if (!loading && !profile) {
     return null;
   }
